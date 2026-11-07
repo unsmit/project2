@@ -1,0 +1,3 @@
+#! /bin/bash
+echo Comparing simulation reports from $1 with simulation reports from $2...
+diff -iw <(sed -ne '/=== Simulation Reports ===/,$ p' $1) <(sed -n '/=== Simulation Reports ===/,$ p' $2)

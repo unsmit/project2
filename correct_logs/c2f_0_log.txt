@@ -1,0 +1,59 @@
+== cycle |    fetch |   decode |  exec1   |  exec2   |   memory | writeBack|
+== ------+----------+----------+----------+----------+----------+----------|
+==     0 |        0 | ffffffff | ffffffff | ffffffff | ffffffff | ffffffff |
+==     1 |        4 |        0 | ffffffff | ffffffff | ffffffff | ffffffff |
+==     2 |        8 |        4 |        0 | ffffffff | ffffffff | ffffffff |
+Data hazard... register X0 will be written by the instruction in the ex1 stage
+==     3 |        8 |        4 |        4 |        0 | ffffffff | ffffffff |
+Data hazard... register X0 will be written by the instruction in the ex2 stage
+==     4 |        8 |        4 |        4 |        4 |        0 | ffffffff |
+Data hazard... register X0 will be written by the instruction in the mem stage
+==     5 |        8 |        4 |        4 |        4 |        4 |        0 |
+==     6 |        c |        8 |        4 |        4 |        4 |        4 |
+Data hazard... register X1 will be written by the instruction in the ex1 stage
+==     7 |        c |        8 |        8 |        4 |        4 |        4 |
+Data hazard... register X1 will be written by the instruction in the ex2 stage
+==     8 |        c |        8 |        8 |        8 |        4 |        4 |
+Data hazard... register X1 will be written by the instruction in the mem stage
+==     9 |        c |        8 |        8 |        8 |        8 |        4 |
+==    10 |       10 |        c |        8 |        8 |        8 |        8 |
+Data hazard... register X1 will be written by the instruction in the ex1 stage
+==    11 |       10 |        c |        c |        8 |        8 |        8 |
+Data hazard... register X1 will be written by the instruction in the ex2 stage
+==    12 |       10 |        c |        c |        c |        8 |        8 |
+Data hazard... register X1 will be written by the instruction in the mem stage
+==    13 |       10 |        c |        c |        c |        c |        8 |
+==    14 |       14 |       10 |        c |        c |        c |        c |
+Data hazard... register X1 will be written by the instruction in the ex1 stage
+==    15 |       14 |       10 |       10 |        c |        c |        c |
+Data hazard... register X1 will be written by the instruction in the ex2 stage
+==    16 |       14 |       10 |       10 |       10 |        c |        c |
+Data hazard... register X1 will be written by the instruction in the mem stage
+==    17 |       14 |       10 |       10 |       10 |       10 |        c |
+==    18 |       18 |       14 |       10 |       10 |       10 |       10 |
+Data hazard... register X1 will be written by the instruction in the ex1 stage
+==    19 |       18 |       14 |       14 |       10 |       10 |       10 |
+Data hazard... register X1 will be written by the instruction in the ex2 stage
+==    20 |       18 |       14 |       14 |       14 |       10 |       10 |
+Data hazard... register X1 will be written by the instruction in the mem stage
+==    21 |       18 |       14 |       14 |       14 |       14 |       10 |
+==    22 |       1c |       18 |       14 |       14 |       14 |       14 |
+==    23 |       20 |       1c |       18 |       14 |       14 |       14 |
+==    24 |       24 |       20 |       1c |       18 |       14 |       14 |
+==    25 |       28 |       24 |       20 |       1c |       18 |       14 |
+==    26 |       2c |       28 |       24 |       20 |       1c |       18 |
+=== Simulation Reports ===
+Non-Zero Registers....
+  X0 = 4000
+  X1 = 32
+Instruction Count Report...
+   OPCODE - CNT
+     ADDI -   1
+     MULI -   1
+     DIVI -   1
+       LD -   1
+       ST -   1
+     EXIT -   1
+      MOV -   1
+
+Total Instructions=7 Cycles=27 IPC= 0.26
